@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d6f9ff+0,9ee8fa+100;Blue+3D */
+			background: rgb(214,249,255); /* Old browsers */
+			background: -moz-linear-gradient(-45deg, rgba(214,249,255,1) 0%, rgba(158,232,250,1) 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(-45deg, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(135deg, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9ff', endColorstr='#9ee8fa',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		}
+
+		h1 {
+	  		font-family: 'Crimson Text', 'Georgia', serif;
+	  		line-height: 1.5;
+		}
+		button {
+			text-transform: uppercase;
+			font-size: 14px;
+			font-weight: normal;
+			border: none !important;
+			background: #a9e4f7 !important;
+		}
+		.btn:focus, .btn:active:focus, .btn.active:focus {
+			outline: none !important;
+		}
+
+	</style>
+</head>
+<body>
+  <div class="container-fluid">
+  	<div class="row d-flex">
+  		<div class="col-6">
+  			<button id="new" class="btn  btn-lg">Next Quote</button>
+  		</div>
+  		<div class="col-6 text-right">
+      		<a href="https://twitter.com/intent/tweet?text=Today's%20design%20quote&url=https://codepen.io/livelytania/pen/eRLwvj/&hashtags=codepen,100DaysOfCode&via"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    	</div>
+  	</div>
+
+  	<div class="row align-items-center">
+  		<div class="col-12 col-md-10 text-right">
+  			<div class="quote">
+  				<h1 id="quote-content"></h1>
+  			</div>
+  			<div class="quote">
+  				<p id="quote-author"></p>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+
+  <script type="text/javascript">
+
+
+
+	var btn = document.querySelector('#new');
+	var show = document.querySelector('#quote-content')
+
+	btn.addEventListener("click", getQuote);
+
+	function getQuote() {
+			// Ajax stuff
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					let data = JSON.parse(this.responseText);
+					showData(data);
+				}
+			}
+			xhttp.open("GET", "https://mrprofessor.github.io/Dumps/quotes.json", true);
+			xhttp.send();
+		}
+
+	function showData(data) {
+		var index = Math.floor((Math.random()*data.length));
+		var string= '<b>'+data[index].content+'</b>' + data[index].title;
+		show.innerHTML  = string;
+		console.log(string);
+	}
+
+
+	window.onload = getQuote();
+
+
+  </script>
+</body>
+</html>
